@@ -13,6 +13,20 @@ public class MessageController {
 
     private static final Logger LOGGER = Logger.getLogger(MessageController.class.getName());
 
+    @RequestMapping("/")
+    public Payload ping(HttpServletRequest request) {
+        
+        LOGGER.setLevel(Level.INFO);
+
+        LOGGER.info("url: " + request.getRequestURI());
+
+        Payload payload = new Payload();
+
+        payload.setMessages(getJoke1());
+
+        return payload;
+    }
+
     @RequestMapping("/messages/v3/conversations/{conversationId}/activities/{activityId}")
     public Payload message(HttpServletRequest request,
             @PathVariable(value = "conversationId") final String conversationId,

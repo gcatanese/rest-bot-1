@@ -40,7 +40,14 @@ public class MessageControllerTests {
     private MockMvc mockMvc;
 
     @Test
-    public void noParamGreetingShouldReturnDefaultMessage() throws Exception {
+    public void ping() throws Exception {
+
+        this.mockMvc.perform(get("/")).andDo(print()).andExpect(status().isOk())
+                .andExpect(jsonPath("messages").isArray());
+    }
+
+    @Test
+    public void test() throws Exception {
 
         this.mockMvc.perform(get("/messages/v3/conversations/00/activities/11")).andDo(print()).andExpect(status().isOk())
                 .andExpect(jsonPath("messages").isArray());
