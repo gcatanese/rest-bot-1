@@ -13,7 +13,7 @@ public class MessageController {
 
     private static final Logger LOGGER = Logger.getLogger(MessageController.class.getName());
 
-    @RequestMapping("/v3/conversations/{conversationId}/activities/{activityId}")
+    @RequestMapping("/messages/v3/conversations/{conversationId}/activities/{activityId}")
     public Payload message(HttpServletRequest request,
             @PathVariable(value = "conversationId") final String conversationId,
             @PathVariable(value = "activityId") final String activityId) {
