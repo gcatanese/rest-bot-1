@@ -42,7 +42,7 @@ public class MessageControllerTests {
     @Test
     public void noParamGreetingShouldReturnDefaultMessage() throws Exception {
 
-        this.mockMvc.perform(get("/apis/v3/conversations/00/activities/11")).andDo(print()).andExpect(status().isOk())
+        this.mockMvc.perform(get("/v3/conversations/00/activities/11")).andDo(print()).andExpect(status().isOk())
                 .andExpect(jsonPath("messages").isArray());
     }
 
