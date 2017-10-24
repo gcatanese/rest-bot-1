@@ -5,7 +5,10 @@ import java.util.logging.Level;
 import javax.servlet.http.HttpServletRequest;
 import java.util.logging.Logger;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import static org.springframework.web.bind.annotation.RequestMethod.POST;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -13,12 +16,14 @@ public class MessageController {
 
     private static final Logger LOGGER = Logger.getLogger(MessageController.class.getName());
 
-    @RequestMapping("/")
-    public Payload ping(HttpServletRequest request) {
+    @RequestMapping(value ="/", method = POST)
+    @ResponseBody
+    public Payload ping(HttpServletRequest request, @RequestBody String body) {
         
         LOGGER.setLevel(Level.INFO);
 
         LOGGER.info("url: " + request.getRequestURI());
+        LOGGER.info("body: " + body);
 
         Payload payload = new Payload();
 
@@ -30,13 +35,15 @@ public class MessageController {
     @RequestMapping("/messages/v3/conversations/{conversationId}/activities/{activityId}")
     public Payload message(HttpServletRequest request,
             @PathVariable(value = "conversationId") final String conversationId,
-            @PathVariable(value = "activityId") final String activityId) {
+            @PathVariable(value = "activityId") final String activityId, 
+            @RequestBody String body) {
         
         LOGGER.setLevel(Level.INFO);
 
         LOGGER.info("url: " + request.getRequestURI());
         LOGGER.info("conversationId: " + conversationId);
         LOGGER.info("activityId: " + activityId);
+        LOGGER.info("body: " + body);
 
         Payload payload = new Payload();
 

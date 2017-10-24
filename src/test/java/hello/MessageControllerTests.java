@@ -28,6 +28,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
@@ -42,16 +43,28 @@ public class MessageControllerTests {
     @Test
     public void ping() throws Exception {
 
-        this.mockMvc.perform(get("/")).andDo(print()).andExpect(status().isOk())
+        this.mockMvc.perform(post("/").content("teste")).andDo(print()).andExpect(status().isOk())
                 .andExpect(jsonPath("messages").isArray());
+        
+//        this.mvc.perform(post("/api/cliente/pessoafisica/post")
+//            .contentType(MediaType.APPLICATION_JSON)
+//            .content("teste"))
+//            .andDo(print())
+//            .andExpect(status().is2xxSuccessful());
     }
 
-    @Test
-    public void test() throws Exception {
+    //@Test
+    public void testGet() throws Exception {
 
         this.mockMvc.perform(get("/messages/v3/conversations/00/activities/11")).andDo(print()).andExpect(status().isOk())
                 .andExpect(jsonPath("messages").isArray());
     }
+    
+    //@Test
+    public void testPost() throws Exception {
 
+        this.mockMvc.perform(post("/messages/v3/conversations/00/activities/11")).andDo(print()).andExpect(status().isOk())
+                .andExpect(jsonPath("messages").isArray());
+    }
 
 }
