@@ -12,9 +12,9 @@ public class ConversationUrlHandler {
 
     public static String getReplyUrl(Activity activity) {
 
-        String url = activity.getServiceUrl() + "/"
-                + "/v3/conversations/" + activity.getConversation().getId()
-                + "/activities/" + activity.getReplyToId();
+        String url = activity.getServiceUrl() 
+                + "v3/conversations/" + activity.getConversation().getId()
+                + "/activities/" + activity.getId();
 
         
 
