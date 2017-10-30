@@ -12,11 +12,16 @@ public class ConversationUrlHandler {
 
     public static String getReplyUrl(Activity activity) {
 
-        String url = activity.getServiceUrl() 
-                + "v3/conversations/" + activity.getConversation().getId()
-                + "/activities/" + activity.getId();
+        String baseUrl = activity.getServiceUrl();
 
-        
+        if (baseUrl.endsWith("/")) {
+            // remove trailing slash
+            baseUrl = baseUrl.substring(0, baseUrl.length() - 1);
+        }
+
+        String url = baseUrl
+                + "/v3/conversations/" + activity.getConversation().getId()
+                + "/activities/" + activity.getId();
 
         return url;
     }
