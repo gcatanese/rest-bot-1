@@ -1,0 +1,25 @@
+{
+  "type": "message",
+  "text": "jj",
+  "from": {
+    "id": "default-user",
+    "name": "User"
+  },
+  "locale": "en-US",
+  "textFormat": "plain",
+  "timestamp": "2017-10-30T15:42:01.323Z",
+  "channelData": {
+    "clientActivityId": "1509376542352.5322877619614355.4"
+  },
+  "id": "124k29n45ck4k",
+  "channelId": "emulator",
+  "localTimestamp": "2017-10-30T16:42:01+01:00",
+  "recipient": {
+    "id": "i3i1lh5cdmc9",
+    "name": "Bot"
+  },
+  "conversation": {
+    "id": "k2mjibh5ch1h"
+  },
+  "serviceUrl": "http://localhost:60215"
+}

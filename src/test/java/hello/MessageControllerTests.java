@@ -15,9 +15,7 @@
  */
 package hello;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import java.io.InputStream;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import org.junit.Test;
@@ -25,6 +23,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -41,30 +40,30 @@ public class MessageControllerTests {
     private MockMvc mockMvc;
 
     @Test
-    public void ping() throws Exception {
+    public void bot() throws Exception {
 
-        this.mockMvc.perform(post("/").content("teste")).andDo(print()).andExpect(status().isOk())
-                .andExpect(jsonPath("messages").isArray());
-        
-//        this.mvc.perform(post("/api/cliente/pessoafisica/post")
-//            .contentType(MediaType.APPLICATION_JSON)
-//            .content("teste"))
-//            .andDo(print())
-//            .andExpect(status().is2xxSuccessful());
+        InputStream inputStream = getClass().getResourceAsStream("/body1.json");
+
+        byte[] targetArray = new byte[inputStream.available()];
+        inputStream.read(targetArray);
+
+        this.mockMvc.perform(post("/bot")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(targetArray)).andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("id").value("999"));
+                //.andExpect(content().string("Ok"));
+
     }
 
-    //@Test
+    @Test
     public void testGet() throws Exception {
 
-        this.mockMvc.perform(get("/messages/v3/conversations/00/activities/11")).andDo(print()).andExpect(status().isOk())
-                .andExpect(jsonPath("messages").isArray());
+        this.mockMvc.perform(get("/test")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().isOk());
     }
-    
-    //@Test
-    public void testPost() throws Exception {
 
-        this.mockMvc.perform(post("/messages/v3/conversations/00/activities/11")).andDo(print()).andExpect(status().isOk())
-                .andExpect(jsonPath("messages").isArray());
-    }
 
 }
