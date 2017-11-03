@@ -5,7 +5,7 @@
  */
 package hello.pojo;
 
-public class Conversation {
+public class ConversationAccount {
 
     private String id;
 
@@ -39,6 +39,6 @@ public class Conversation {
 
     @Override
     public String toString() {
-        return "ClassPojo [id = " + id + ", name = " + name + ", isGroup = " + isGroup + "]";
+        return "ConversationAccount [id = " + id + ", name = " + name + ", isGroup = " + isGroup + "]";
     }
 }

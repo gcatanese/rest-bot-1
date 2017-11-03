@@ -2,8 +2,7 @@ package hello.comm.dto;
 
 import hello.ConversationUrlHandler;
 import hello.pojo.Activity;
-import hello.pojo.From;
-import hello.pojo.Recipient;
+import hello.pojo.ChannelAccount;
 
 /**
  *
@@ -18,14 +17,14 @@ public class Message {
         Activity activity = new Activity();
         activity.setConversation(input.getActivity().getConversation());
 
-        From from = new From();
+        ChannelAccount from = new ChannelAccount();
 //        from.setId(input.getActivity().getRecipient().getId());
 //        from.setName(input.getActivity().getRecipient().getName());
         from.setId("99");
         from.setName("FantaAntonio");
         activity.setFrom(from);
 
-        Recipient recipient = new Recipient();
+        ChannelAccount recipient = new ChannelAccount();
         recipient.setId(input.getActivity().getFrom().getId());
         recipient.setName(input.getActivity().getFrom().getName());
         activity.setRecipient(recipient);

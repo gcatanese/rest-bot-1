@@ -10,17 +10,17 @@ public class Activity {
 
     private String attachmentLayout;
 
-    private From from;
+    private ChannelAccount from;
 
     private String type;
 
-    private Recipient recipient;
+    private ChannelAccount recipient;
 
     private String timestamp;
 
     private String id;
 
-    private String[] membersAdded;
+    private ChannelAccount[] membersAdded;
 
     private String localTimestamp;
 
@@ -32,7 +32,7 @@ public class Activity {
 
     private String action;
 
-    private Conversation conversation;
+    private ConversationAccount conversation;
 
     private Attachments[] attachments;
 
@@ -60,7 +60,7 @@ public class Activity {
 
     private String inputHint;
 
-    private String[] membersRemoved;
+    private ChannelAccount[] membersRemoved;
 
     public String getSummary() {
         return summary;
@@ -94,11 +94,11 @@ public class Activity {
         this.attachmentLayout = attachmentLayout;
     }
 
-    public From getFrom() {
+    public ChannelAccount getFrom() {
         return from;
     }
 
-    public void setFrom(From from) {
+    public void setFrom(ChannelAccount from) {
         this.from = from;
     }
 
@@ -110,11 +110,11 @@ public class Activity {
         this.type = type;
     }
 
-    public Recipient getRecipient() {
+    public ChannelAccount getRecipient() {
         return recipient;
     }
 
-    public void setRecipient(Recipient recipient) {
+    public void setRecipient(ChannelAccount recipient) {
         this.recipient = recipient;
     }
 
@@ -134,11 +134,11 @@ public class Activity {
         this.id = id;
     }
 
-    public String[] getMembersAdded() {
+    public ChannelAccount[] getMembersAdded() {
         return membersAdded;
     }
 
-    public void setMembersAdded(String[] membersAdded) {
+    public void setMembersAdded(ChannelAccount[] membersAdded) {
         this.membersAdded = membersAdded;
     }
 
@@ -182,11 +182,11 @@ public class Activity {
         this.action = action;
     }
 
-    public Conversation getConversation() {
+    public ConversationAccount getConversation() {
         return conversation;
     }
 
-    public void setConversation(Conversation conversation) {
+    public void setConversation(ConversationAccount conversation) {
         this.conversation = conversation;
     }
 
@@ -294,11 +294,11 @@ public class Activity {
         this.inputHint = inputHint;
     }
 
-    public String[] getMembersRemoved() {
+    public ChannelAccount[] getMembersRemoved() {
         return membersRemoved;
     }
 
-    public void setMembersRemoved(String[] membersRemoved) {
+    public void setMembersRemoved(ChannelAccount[] membersRemoved) {
         this.membersRemoved = membersRemoved;
     }
 

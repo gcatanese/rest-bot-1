@@ -1,9 +1,15 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package hello.pojo;
 
 /**
  *
+ * @author gcatanese
  */
-public class Recipient {
+public class ChannelAccount {
 
     private String id;
     private String name;
@@ -26,10 +32,8 @@ public class Recipient {
 
     @Override
     public String toString() {
-        return "Recipient:"
+        return "ChannelAccount:"
                 + "id:" + id
                 + ", name:" + name;
     }
-    
-
 }
