@@ -22,6 +22,9 @@ public class MessageController {
     @Autowired
     private BotCore botCore;
 
+    @Autowired
+    private SecurityAgent securityAgent;
+    
     @RequestMapping(value = "/test", method = GET)
     public String test(HttpServletRequest request) {
         return "test";
@@ -38,6 +41,11 @@ public class MessageController {
         LOGGER.info("headers: " + getHeadersInfo(request));
 
         getBotCore().process(activity);
+        
+        String jwt = this.getJWT(request);
+        LOGGER.info("jwt: " + jwt);
+        
+        getSecurityAgent().auth(jwt);
 
         return getAck();
 
@@ -59,6 +67,15 @@ public class MessageController {
     public void setBotCore(BotCore botCore) {
         this.botCore = botCore;
     }
+
+    public SecurityAgent getSecurityAgent() {
+        return securityAgent;
+    }
+
+    public void setSecurityAgent(SecurityAgent securityAgent) {
+        this.securityAgent = securityAgent;
+    }
+    
     
     private Map<String, String> getHeadersInfo(HttpServletRequest request) {
 
@@ -72,6 +89,23 @@ public class MessageController {
         }
 
         return map;
+    }
+    
+    private String getJWT(HttpServletRequest request) {
+        String jwt = null;
+        
+        Enumeration headerNames = request.getHeaderNames();
+        while (headerNames.hasMoreElements()) {
+            String key = (String) headerNames.nextElement();
+            
+            if(key.equalsIgnoreCase("authorization")) {
+                jwt = request.getHeader(key);
+                break;
+            }
+            
+        }
+        
+        return jwt;
     }
     
 

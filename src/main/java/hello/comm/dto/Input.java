@@ -68,6 +68,7 @@ public class Input {
                 + ", getUserId:" + getUserId()
                 + ", getConversationId:" + getConversationId()
                 + ", activity.recipient:" + activity.getRecipient()
+                + ", activity.channelId:" + activity.getChannelId()
                 + "]";
     }
   
