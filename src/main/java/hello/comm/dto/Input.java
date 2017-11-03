@@ -64,9 +64,10 @@ public class Input {
     public String toString() {
         return "Input["
                 + "getMessage:" + getMessage()
-                + "getUserName:" + getUserName()
-                + "getUserId:" + getUserId()
-                + "getConversationId:" + getConversationId()
+                + ", getUserName:" + getUserName()
+                + ", getUserId:" + getUserId()
+                + ", getConversationId:" + getConversationId()
+                + ", activity.recipient:" + activity.getRecipient()
                 + "]";
     }
   

@@ -19,8 +19,10 @@ public class Message {
         activity.setConversation(input.getActivity().getConversation());
 
         From from = new From();
-        from.setId(input.getActivity().getRecipient().getId());
-        from.setName(input.getActivity().getRecipient().getName());
+//        from.setId(input.getActivity().getRecipient().getId());
+//        from.setName(input.getActivity().getRecipient().getName());
+        from.setId("99");
+        from.setName("FantaAntonio");
         activity.setFrom(from);
 
         Recipient recipient = new Recipient();

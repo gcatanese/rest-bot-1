@@ -24,4 +24,12 @@ public class Recipient {
         this.name = name;
     }
 
+    @Override
+    public String toString() {
+        return "Recipient:"
+                + "id:" + id
+                + ", name:" + name;
+    }
+    
+
 }
