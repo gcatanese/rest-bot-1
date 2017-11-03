@@ -1,6 +1,9 @@
 package hello;
 
 import hello.pojo.Activity;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import javax.servlet.http.HttpServletRequest;
 import java.util.logging.Logger;
@@ -32,6 +35,7 @@ public class MessageController {
 
         LOGGER.info("url: " + request.getRequestURI());
         LOGGER.info("body: " + activity);
+        LOGGER.info("headers: " + getHeadersInfo(request));
 
         getBotCore().process(activity);
 
@@ -55,5 +59,20 @@ public class MessageController {
     public void setBotCore(BotCore botCore) {
         this.botCore = botCore;
     }
+    
+    private Map<String, String> getHeadersInfo(HttpServletRequest request) {
+
+        Map<String, String> map = new HashMap<String, String>();
+
+        Enumeration headerNames = request.getHeaderNames();
+        while (headerNames.hasMoreElements()) {
+            String key = (String) headerNames.nextElement();
+            String value = request.getHeader(key);
+            map.put(key, value);
+        }
+
+        return map;
+    }
+    
 
 }

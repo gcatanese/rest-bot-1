@@ -73,7 +73,7 @@ public class Output {
     public String toString() {
         return "Output["
                 + "getUrlEndPoint:" + getUrlEndPoint()
-                + "activity:" + getActivity()
+                + ", activity:" + getActivity()
                 + "]";
     }
   
