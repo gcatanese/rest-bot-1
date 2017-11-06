@@ -45,8 +45,6 @@ public class Publisher {
         HttpHeaders headers = new HttpHeaders();
         headers.add("Authorization", "Bearer " + getToken());
 
-        restTemplate = new RestTemplate();
-        
         HttpEntity<Activity> entity = new HttpEntity<>(output.getActivity(), headers);
 
         Activity result = restTemplate.postForObject(output.getUrlEndPoint(), entity, Activity.class);
@@ -72,6 +70,7 @@ public class Publisher {
         HttpEntity<String> entity = new HttpEntity<>(param, headers);
 
         JWTWrapper result = restTemplate.postForObject(url, entity, JWTWrapper.class);
+        LOGGER.log(Level.INFO, "getToken_type:{0}", result.getToken_type());
         LOGGER.log(Level.INFO, "getAccess_token:{0}", result.getAccess_token());
         
         return result.getAccess_token();
