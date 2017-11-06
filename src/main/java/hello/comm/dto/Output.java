@@ -17,6 +17,8 @@ public class Output {
     private String text;
     private List<Actions> actions = new ArrayList<>();
 
+    private String jwt;
+
     public Output() {
 
     }
@@ -56,7 +58,14 @@ public class Output {
     public String getText() {
         return text;
     }
-   
+
+    public String getJwt() {
+        return jwt;
+    }
+
+    public void setJwt(String jwt) {
+        this.jwt = jwt;
+    }
 
     public void addButton(String title, String value) {
 
@@ -66,7 +75,7 @@ public class Output {
         action.setType("imBack");
 
         this.actions.add(action);
-        
+
     }
 
     @Override
@@ -76,6 +85,5 @@ public class Output {
                 + ", activity:" + getActivity()
                 + "]";
     }
-  
 
 }

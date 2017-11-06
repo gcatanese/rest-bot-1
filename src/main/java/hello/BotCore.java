@@ -15,7 +15,7 @@ public class BotCore {
 
     @Autowired
     private Publisher publisher;
-
+    
     /**
      * Process the Activity received from the user
      *
@@ -80,4 +80,6 @@ public class BotCore {
     public void setPublisher(Publisher publisher) {
         this.publisher = publisher;
     }
+
+    
 }
