@@ -42,10 +42,10 @@ public class MessageController {
 
         getBotCore().process(activity);
         
-        String jwt = this.getJWT(request);
-        LOGGER.info("jwt: " + jwt);
+//        String jwt = this.getJWT(request);
+//        LOGGER.info("jwt: " + jwt);
         
-        getSecurityAgent().auth(jwt);
+        //getSecurityAgent().auth(jwt);
 
         return getAck();
 
@@ -53,6 +53,8 @@ public class MessageController {
 
     private String getAck() {
         String id = "999";
+        
+        LOGGER.info("Sending 999");
 
         // id:XXX as JSON
         return "{\n\"id\":\""
