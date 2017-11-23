@@ -39,7 +39,7 @@ public class SecurityAgent {
 
         Thread t = new Thread(new Runnable() {
             public void run() {
-                //String s = getKeys(getOpenIDMetadataDocument());
+                String s = getKeys(getOpenIDMetadataDocument());
 
                 String token = getToken();
             }
