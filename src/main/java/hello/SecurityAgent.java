@@ -75,11 +75,11 @@ public class SecurityAgent {
         RestTemplate restTemplate = new RestTemplate();
 
         String resultAsString = restTemplate.getForObject(jwks_uri, String.class);
-        LOGGER.log(Level.INFO, "getKeys resultAsString id:{0}", resultAsString);
+        //LOGGER.log(Level.INFO, "getKeys resultAsString id:{0}", resultAsString);
 
         Keys result = restTemplate.getForObject(jwks_uri, Keys.class);
 
-        LOGGER.log(Level.INFO, "getKeys response id:{0}", result);
+        
 
         return s;
     }
@@ -108,7 +108,7 @@ public class SecurityAgent {
         HttpEntity<String> entity = new HttpEntity<>(param, headers);
 
         JWTWrapper result = restTemplate.postForObject(url, entity, JWTWrapper.class);
-        LOGGER.log(Level.INFO, "getToken response id:{0}", result);
+        //LOGGER.log(Level.INFO, "getToken response id:{0}", result);
         
         return result.getAccess_token();
 
