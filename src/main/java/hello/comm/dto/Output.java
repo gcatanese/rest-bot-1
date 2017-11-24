@@ -25,7 +25,7 @@ public class Output {
 
     // finalises Output object before sending it
     public void build() {
-        activity.setText(getText());
+        //activity.setText(getText());
 
         SuggestedActions suggestedActions = new SuggestedActions();
         suggestedActions.setActions(actions);

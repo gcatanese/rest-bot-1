@@ -38,12 +38,10 @@ public class MessageController {
 
         LOGGER.info("url: " + request.getRequestURI());
         LOGGER.info("body: " + activity);
-        LOGGER.info("headers: " + getHeadersInfo(request));
 
         getBotCore().process(activity);
         
         String jwt = this.getJWT(request);
-        LOGGER.info("jwt: " + jwt);
         
         getSecurityAgent().auth(jwt);
 
