@@ -53,13 +53,13 @@ public class SecurityAgent {
         String endPoint = "https://login.botframework.com/v1/.well-known/openidconfiguration";
         String s = null;
 
-        LOGGER.log(Level.INFO, "getOpenIDMetadataDocument urlEndPoint:{0}", endPoint);
+        //LOGGER.log(Level.INFO, "getOpenIDMetadataDocument urlEndPoint:{0}", endPoint);
 
         RestTemplate restTemplate = new RestTemplate();
 
         OpenIDMetadataDocument result = restTemplate.getForObject(endPoint, OpenIDMetadataDocument.class);
 
-        LOGGER.log(Level.INFO, "getOpenIDMetadataDocument response id:{0}", result);
+        //LOGGER.log(Level.INFO, "getOpenIDMetadataDocument response id:{0}", result);
 
         s = result.getJwks_uri();
 
@@ -75,7 +75,7 @@ public class SecurityAgent {
         RestTemplate restTemplate = new RestTemplate();
 
         String resultAsString = restTemplate.getForObject(jwks_uri, String.class);
-        //LOGGER.log(Level.INFO, "getKeys resultAsString id:{0}", resultAsString);
+        LOGGER.log(Level.INFO, "getKeys resultAsString id:{0}", resultAsString);
 
         Keys result = restTemplate.getForObject(jwks_uri, Keys.class);
 
