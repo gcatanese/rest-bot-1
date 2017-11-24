@@ -7,11 +7,11 @@ package hello.pojo;
 
 public class Actions {
 
+    private String type;
+
     private String title;
 
     private String value;
-
-    private String type;
 
     public String getTitle() {
         return title;
