@@ -1,5 +1,7 @@
 package hello.pojo;
 
+import java.util.List;
+
 public class Activity {
 
     private String summary;
@@ -34,7 +36,7 @@ public class Activity {
 
     private ConversationAccount conversation;
 
-    private Attachments[] attachments;
+    private List<Attachment> attachments;
 
     private String historyDisclosed;
 
@@ -190,11 +192,11 @@ public class Activity {
         this.conversation = conversation;
     }
 
-    public Attachments[] getAttachments() {
+    public List<Attachment> getAttachments() {
         return attachments;
     }
 
-    public void setAttachments(Attachments[] attachments) {
+    public void setAttachments(List<Attachment> attachments) {
         this.attachments = attachments;
     }
 
