@@ -30,6 +30,7 @@ public class Output {
         SuggestedActions suggestedActions = new SuggestedActions();
         suggestedActions.setActions(actions);
 
+        activity.setInputHint("expectingInput");
         activity.setSuggestedActions(suggestedActions);
 
     }
