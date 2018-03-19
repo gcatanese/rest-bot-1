@@ -42,7 +42,7 @@ public class MessageController {
         LOGGER.setLevel(Level.INFO);
         
         String prettyBody = JsonWriter.formatJson(body);
-        LOGGER.log(Level.FINE, "body: {0}", prettyBody);
+        LOGGER.log(Level.INFO, "body: {0}", prettyBody);
         
         ObjectMapper mapper = new ObjectMapper();
         mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
