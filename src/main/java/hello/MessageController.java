@@ -1,6 +1,9 @@
 package hello;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import hello.pojo.Activity;
+import java.io.IOException;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
@@ -13,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import static org.springframework.web.bind.annotation.RequestMethod.*;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.cedarsoftware.util.io.JsonWriter;
 
 @RestController
 public class MessageController {
@@ -32,12 +37,23 @@ public class MessageController {
 
     @RequestMapping(value = "/bot", method = POST)
     @ResponseBody
-    public String handler(HttpServletRequest request, @RequestBody Activity activity) {
+    public String handler(HttpServletRequest request, @RequestBody String body) {
 
         LOGGER.setLevel(Level.INFO);
-
-        LOGGER.info("url: " + request.getRequestURI());
-        LOGGER.info("body: " + activity);
+        
+        String prettyBody = JsonWriter.formatJson(body);
+        LOGGER.log(Level.FINE, "body: {0}", prettyBody);
+        
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        
+        // convert raw body to Java object
+        Activity activity;
+        try {
+            activity = mapper.readValue(body, Activity.class);
+        } catch (IOException ex) {
+            throw new RuntimeException(ex);
+        }
 
         getBotCore().setServiceUrl(activity);
         

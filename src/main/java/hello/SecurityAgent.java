@@ -70,12 +70,12 @@ public class SecurityAgent {
     private String getKeys(String jwks_uri) {
         String s = null;
 
-        LOGGER.log(Level.INFO, "getKeys jwks_uri:{0}", jwks_uri);
+        //LOGGER.log(Level.INFO, "getKeys jwks_uri:{0}", jwks_uri);
 
         RestTemplate restTemplate = new RestTemplate();
 
         String resultAsString = restTemplate.getForObject(jwks_uri, String.class);
-        LOGGER.log(Level.INFO, "getKeys resultAsString id:{0}", resultAsString);
+        //LOGGER.log(Level.INFO, "getKeys resultAsString id:{0}", resultAsString);
 
         Keys result = restTemplate.getForObject(jwks_uri, Keys.class);
 
