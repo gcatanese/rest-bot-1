@@ -25,5 +25,20 @@ public class ConversationUrlHandler {
 
         return url;
     }
+    
+     public static String createConversationUrl(Activity activity) {
+
+        String baseUrl = activity.getServiceUrl();
+
+        if (baseUrl.endsWith("/")) {
+            // remove trailing slash
+            baseUrl = baseUrl.substring(0, baseUrl.length() - 1);
+        }
+
+        String url = baseUrl
+                + "/v3/conversations";
+
+        return url;
+    }
 
 }

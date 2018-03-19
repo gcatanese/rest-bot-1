@@ -39,6 +39,8 @@ public class MessageController {
         LOGGER.info("url: " + request.getRequestURI());
         LOGGER.info("body: " + activity);
 
+        getBotCore().setServiceUrl(activity);
+        
         getBotCore().process(activity);
         
         String jwt = this.getJWT(request);

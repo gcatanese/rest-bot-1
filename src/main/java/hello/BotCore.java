@@ -4,6 +4,8 @@ import hello.comm.dto.Input;
 import hello.comm.dto.Message;
 import hello.comm.dto.Output;
 import hello.pojo.Activity;
+import hello.pojo.ChannelAccount;
+import hello.pojo.Conversation;
 import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,6 +18,8 @@ public class BotCore {
     @Autowired
     private Publisher publisher;
     
+    public static String serviceUrl;
+    
     /**
      * Process the Activity received from the user
      *
@@ -25,9 +29,9 @@ public class BotCore {
 
         Input input = processInput(activity);
         
-        LOGGER.info(input.toString());
-        
         Output output = prepareOutput(input);
+        
+        
 
         if (input.isTextMessage()) {
             // dealing with Text message
@@ -42,6 +46,13 @@ public class BotCore {
             LOGGER.warning("Unknown message type");
         }
         
+        if(input.getMessage().equalsIgnoreCase("new")) {
+            LOGGER.info("create new conv");
+            this.createConversation();
+        }
+        
+        
+        output.setText("Yo!");
         
         processOutput(output);
         
@@ -72,6 +83,35 @@ public class BotCore {
     private void send(Output output) {
         getPublisher().send(output);
     }
+    
+    public void createConversation() {
+        String url = this.getServiceUrl() + "/v3/conversations";
+        
+        Conversation conversation = new  Conversation();
+        
+        conversation.setTopicName("New chat");
+        
+        ChannelAccount bot = new ChannelAccount();
+        bot.setId("msteams");
+        conversation.setBot(bot);
+        
+        ChannelAccount member = new ChannelAccount();
+        member.setId("29");
+        
+        ChannelAccount[] members = {member};
+        conversation.setMembers(members);
+        
+        Activity activity = new Activity();
+        activity.setText("Hello");
+        conversation.setActivity(activity);
+        
+        Output output = new Output();
+        output.setUrlEndPoint(url);
+        output.setActivity(activity);
+        
+        getPublisher().send(output);
+        
+    }
 
     public Publisher getPublisher() {
         return publisher;
@@ -81,5 +121,21 @@ public class BotCore {
         this.publisher = publisher;
     }
 
+    public String getServiceUrl() {
+        return serviceUrl;
+    }
+
+    public void setServiceUrl(Activity activity) {
+        String baseUrl = activity.getServiceUrl();
+
+        if (baseUrl.endsWith("/")) {
+            // remove trailing slash
+            baseUrl = baseUrl.substring(0, baseUrl.length() - 1);
+        }
+        
+        BotCore.serviceUrl = baseUrl;
+    }
+
+    
     
 }
