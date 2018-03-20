@@ -37,7 +37,7 @@ public class BotCore {
             output.addButton("Red", "Red");
 
         } else {
-            LOGGER.warning("Unknown message type");
+            LOGGER.warning("Unknown message type..");
         }
 
         processOutput(output);
