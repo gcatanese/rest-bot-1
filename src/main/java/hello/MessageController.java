@@ -63,7 +63,7 @@ public class MessageController {
         
         Output output = getBotCore().reply(activity);
         
-        getPublisher().send(getBotCore().getServiceUrl(), output);
+        getPublisher().send(ConversationUrlHandler.getReplyUrl(getBotCore().getServiceUrl(), activity), output);
         
         String jwt = this.getJWT(request);
         
