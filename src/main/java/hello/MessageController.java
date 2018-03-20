@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cedarsoftware.util.io.JsonWriter;
+import hello.comm.dto.Output;
 
 @RestController
 public class MessageController {
@@ -26,6 +27,9 @@ public class MessageController {
 
     @Autowired
     private BotCore botCore;
+    
+    @Autowired
+    private Publisher publisher;
 
     @Autowired
     private SecurityAgent securityAgent;
@@ -37,7 +41,7 @@ public class MessageController {
 
     @RequestMapping(value = "/bot", method = POST)
     @ResponseBody
-    public String handler(HttpServletRequest request, @RequestBody String body) {
+    public String reply(HttpServletRequest request, @RequestBody String body) {
 
         LOGGER.setLevel(Level.INFO);
         
@@ -57,7 +61,9 @@ public class MessageController {
 
         getBotCore().setServiceUrl(activity);
         
-        getBotCore().process(activity);
+        Output output = getBotCore().reply(activity);
+        
+        getPublisher().send(getBotCore().getServiceUrl(), output);
         
         String jwt = this.getJWT(request);
         
@@ -124,6 +130,14 @@ public class MessageController {
         }
         
         return jwt;
+    }
+
+    public Publisher getPublisher() {
+        return publisher;
+    }
+
+    public void setPublisher(Publisher publisher) {
+        this.publisher = publisher;
     }
     
 

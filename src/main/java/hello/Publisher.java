@@ -24,19 +24,19 @@ public class Publisher {
     private SecurityAgent securityAgent;
 
     // generate reply as POST to the given URL
-    public void send(final Output output) {
+    public void send(final String urlEndPoint, final Output output) {
 
         Thread t = new Thread(new Runnable() {
             public void run() {
-                doRun(output);
+                doRun(urlEndPoint, output);
             }
         });
         t.start();
     }
 
-    private void doRun(Output output) {
+    private void doRun(String urlEndPoint, Output output) {
 
-        LOGGER.log(Level.INFO, "urlEndPoint:{0}", output.getUrlEndPoint());
+        LOGGER.log(Level.INFO, "urlEndPoint:{0}", urlEndPoint);
 
         
         
@@ -47,7 +47,7 @@ public class Publisher {
 
         HttpEntity<Activity> entity = new HttpEntity<>(output.getActivity(), headers);
 
-        Activity result = restTemplate.postForObject(output.getUrlEndPoint(), entity, Activity.class);
+        Activity result = restTemplate.postForObject(urlEndPoint, entity, Activity.class);
 
         LOGGER.log(Level.FINE, "Publisher response id:{0}", result.getId());
 

@@ -16,7 +16,6 @@ public class Output {
 
     private Activity activity = null;
 
-    private String urlEndPoint;
     private String text;
     private List<Actions> actions = new ArrayList<>();
 
@@ -74,14 +73,6 @@ public class Output {
         this.activity = activity;
     }
 
-    public String getUrlEndPoint() {
-        return urlEndPoint;
-    }
-
-    public void setUrlEndPoint(String urlEndPoint) {
-        this.urlEndPoint = urlEndPoint;
-    }
-
     public void setText(String text) {
         this.text = text;
 
@@ -113,7 +104,6 @@ public class Output {
     @Override
     public String toString() {
         return "Output["
-                + "getUrlEndPoint:" + getUrlEndPoint()
                 + ", activity:" + getActivity()
                 + "]";
     }
