@@ -27,7 +27,7 @@ public class Output {
 
     // finalises Output object before sending it
     public void build() {
-        
+
         if (getText() != null) {
             activity.setText(getText());
         }
@@ -41,21 +41,17 @@ public class Output {
         attachment.setContentType("application/vnd.microsoft.card.hero");
 
         Content content = new Content();
-        content.setTitle("title");
-        content.setText("text");
+        content.setTitle("Done!");
+        //content.setText("text");
 
-        Button b1 = new Button();
-        b1.setType("imBack");
-        b1.setTitle("Button 1");
-        b1.setValue("Val1");
+        for (Actions a : actions) {
+            Button button = new Button();
+            button.setType("imBack");
+            button.setTitle(a.getTitle());
+            button.setValue(a.getValue());
 
-        Button b2 = new Button();
-        b2.setType("imBack");
-        b2.setTitle("Button 2");
-        b2.setValue("Val2");
-
-        content.getButtons().add(b1);
-        content.getButtons().add(b2);
+            content.getButtons().add(button);
+        }
 
         attachment.setContent(content);
 

@@ -43,7 +43,7 @@ public class BotCore {
             
             output.setText("Done!");
 
-            output.addButton("Blue", "check");
+            output.addButton("Check Status", "checkstatus");
 
         } else {
             LOGGER.warning("Unknown message type..");
