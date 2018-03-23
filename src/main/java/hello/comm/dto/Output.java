@@ -32,32 +32,32 @@ public class Output {
             activity.setText(getText());
         }
 
-        SuggestedActions suggestedActions = new SuggestedActions();
-        suggestedActions.setActions(actions);
-
-        List<Attachment> list = new ArrayList<>();
-
-        Attachment attachment = new Attachment();
-        attachment.setContentType("application/vnd.microsoft.card.hero");
-
-        Content content = new Content();
-        content.setTitle("Done!");
-        content.setText("Text...");
-
-        for (Actions a : actions) {
-            Button button = new Button();
-            button.setType("imBack");
-            button.setTitle(a.getTitle());
-            button.setValue(a.getValue());
-
-            content.getButtons().add(button);
-        }
-
-        attachment.setContent(content);
-
-        list.add(attachment);
-
-        activity.setAttachments(list);
+//        SuggestedActions suggestedActions = new SuggestedActions();
+//        suggestedActions.setActions(actions);
+//
+//        List<Attachment> list = new ArrayList<>();
+//
+//        Attachment attachment = new Attachment();
+//        attachment.setContentType("application/vnd.microsoft.card.hero");
+//
+//        Content content = new Content();
+//        content.setTitle("Done!");
+//        content.setText("Text...");
+//
+//        for (Actions a : actions) {
+//            Button button = new Button();
+//            button.setType("imBack");
+//            button.setTitle(a.getTitle());
+//            button.setValue(a.getValue());
+//
+//            content.getButtons().add(button);
+//        }
+//
+//        attachment.setContent(content);
+//
+//        list.add(attachment);
+//
+//        activity.setAttachments(list);
 
     }
 

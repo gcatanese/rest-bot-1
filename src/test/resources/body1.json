@@ -1,6 +1,6 @@
 {
   "type": "message",
-  "text": "server app env",
+  "text": "scacc.sapienzaconsulting.com svc staging",
   "from": {
     "id": "default-user",
     "name": "User"
