@@ -75,7 +75,7 @@ public class BotCore {
         
         if (error != null) {
             Output output2 = prepareOutput(input);
-            output2.setText("Try something like: scacc.sapienzaconsulting.com svc staging");
+            output2.setText("Try something like---> scacc.sapienzaconsulting.com svc staging");
             
             processOutput(output2);
             getPublisher().send(ConversationUrlHandler.getReplyUrl(activity), output2);
