@@ -2,10 +2,12 @@ package hello;
 
 import hello.comm.dto.Input;
 import hello.comm.dto.Output;
+import hello.jenkins.DeploymentService;
 import hello.pojo.Activity;
 import hello.pojo.ChannelAccount;
 import hello.pojo.Conversation;
 import java.util.logging.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -13,7 +15,8 @@ public class BotCore {
 
     private static final Logger LOGGER = Logger.getLogger(BotCore.class.getName());
 
-    public static String serviceUrl;
+    @Autowired
+    private DeploymentService deploymentService;
 
     /**
      * Process the Activity received from the user
@@ -26,15 +29,21 @@ public class BotCore {
         Input input = processInput(activity);
 
         Output output = prepareOutput(input);
-        
+
         // customise reply
         if (input.isTextMessage()) {
             // dealing with Text message
 
-            output.setText("Yo!");
+            String command = input.getMessage();
+            LOGGER.info("command-> " + command);
 
-            output.addButton("Blue", "Blue");
-            output.addButton("Red", "Red");
+            String[] parts = command.split(" ");
+
+            getDeploymentService().deployBot(parts[0], parts[1], parts[2]);
+            
+            output.setText("Done!");
+
+            output.addButton("Blue", "check");
 
         } else {
             LOGGER.warning("Unknown message type..");
@@ -92,7 +101,7 @@ public class BotCore {
     }
 
     public void createConversation() {
-        String url = this.getServiceUrl() + "/v3/conversations";
+        String url = "TODO";
 
         Conversation conversation = new Conversation();
 
@@ -118,19 +127,12 @@ public class BotCore {
 
     }
 
-    public String getServiceUrl() {
-        return serviceUrl;
+    public DeploymentService getDeploymentService() {
+        return deploymentService;
     }
 
-    public void setServiceUrl(Activity activity) {
-        String baseUrl = activity.getServiceUrl();
-
-        if (baseUrl.endsWith("/")) {
-            // remove trailing slash
-            baseUrl = baseUrl.substring(0, baseUrl.length() - 1);
-        }
-
-        BotCore.serviceUrl = baseUrl;
+    public void setDeploymentService(DeploymentService deploymentService) {
+        this.deploymentService = deploymentService;
     }
 
 }

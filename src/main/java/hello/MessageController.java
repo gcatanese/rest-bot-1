@@ -27,13 +27,13 @@ public class MessageController {
 
     @Autowired
     private BotCore botCore;
-    
+
     @Autowired
     private Publisher publisher;
 
     @Autowired
     private SecurityAgent securityAgent;
-    
+
     @RequestMapping(value = "/test", method = GET)
     public String test(HttpServletRequest request) {
         return "test";
@@ -44,13 +44,31 @@ public class MessageController {
     public String reply(HttpServletRequest request, @RequestBody String body) {
 
         LOGGER.setLevel(Level.INFO);
+
+        Activity activity = getActivity(body);
+
+        Output output = getBotCore().reply(activity);
+
+        getPublisher().send(ConversationUrlHandler.getReplyUrl(activity), output);
+
+        String jwt = this.getJWT(request);
+
+        getSecurityAgent().auth(jwt);
+
+        return getAck();
+
+    }
+
+    // extract Activity from payload
+    private Activity getActivity(String body) {
         
+        // pretty log first
         String prettyBody = JsonWriter.formatJson(body);
         LOGGER.log(Level.INFO, "body: {0}", prettyBody);
-        
+
         ObjectMapper mapper = new ObjectMapper();
         mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-        
+
         // convert raw body to Java object
         Activity activity;
         try {
@@ -59,23 +77,12 @@ public class MessageController {
             throw new RuntimeException(ex);
         }
 
-        getBotCore().setServiceUrl(activity);
-        
-        Output output = getBotCore().reply(activity);
-        
-        getPublisher().send(ConversationUrlHandler.getReplyUrl(getBotCore().getServiceUrl(), activity), output);
-        
-        String jwt = this.getJWT(request);
-        
-        getSecurityAgent().auth(jwt);
-
-        return getAck();
-
+        return activity;
     }
 
     private String getAck() {
         String id = "999";
-        
+
         LOGGER.info("Sending 999");
 
         // id:XXX as JSON
@@ -99,8 +106,7 @@ public class MessageController {
     public void setSecurityAgent(SecurityAgent securityAgent) {
         this.securityAgent = securityAgent;
     }
-    
-    
+
     private Map<String, String> getHeadersInfo(HttpServletRequest request) {
 
         Map<String, String> map = new HashMap<String, String>();
@@ -114,21 +120,21 @@ public class MessageController {
 
         return map;
     }
-    
+
     private String getJWT(HttpServletRequest request) {
         String jwt = null;
-        
+
         Enumeration headerNames = request.getHeaderNames();
         while (headerNames.hasMoreElements()) {
             String key = (String) headerNames.nextElement();
-            
-            if(key.equalsIgnoreCase("authorization")) {
+
+            if (key.equalsIgnoreCase("authorization")) {
                 jwt = request.getHeader(key);
                 break;
             }
-            
+
         }
-        
+
         return jwt;
     }
 
@@ -139,6 +145,5 @@ public class MessageController {
     public void setPublisher(Publisher publisher) {
         this.publisher = publisher;
     }
-    
 
 }

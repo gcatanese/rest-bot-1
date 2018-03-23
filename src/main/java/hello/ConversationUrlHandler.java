@@ -10,7 +10,9 @@ public class ConversationUrlHandler {
 
     private static final Logger LOGGER = Logger.getLogger(ConversationUrlHandler.class.getName());
 
-    public static String getReplyUrl(String baseUrl, Activity activity) {
+    public static String getReplyUrl(Activity activity) {
+        
+        String baseUrl = activity.getServiceUrl();
 
         if (baseUrl.endsWith("/")) {
             // remove trailing slash
@@ -24,7 +26,9 @@ public class ConversationUrlHandler {
         return url;
     }
     
-     public static String createConversationUrl(String baseUrl, Activity activity) {
+     public static String createConversationUrl(Activity activity) {
+         
+         String baseUrl = activity.getServiceUrl();
 
         if (baseUrl.endsWith("/")) {
             // remove trailing slash

@@ -15,14 +15,19 @@
  */
 package hello;
 
+import hello.jenkins.DeploymentService;
 import java.io.InputStream;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import static org.mockito.Matchers.isA;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
@@ -38,6 +43,9 @@ public class MessageControllerTests {
 
     @Autowired
     private MockMvc mockMvc;
+    
+    @MockBean
+    private DeploymentService deploymentService;
 
     @Test
     public void bot() throws Exception {
@@ -53,6 +61,8 @@ public class MessageControllerTests {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("id").value("999"));
                 //.andExpect(content().string("Ok"));
+                
+                verify(deploymentService, times(1)).deployBot(isA(String.class), isA(String.class), isA(String.class));
 
     }
 

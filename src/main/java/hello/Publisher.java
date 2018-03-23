@@ -49,7 +49,7 @@ public class Publisher {
 
         Activity result = restTemplate.postForObject(urlEndPoint, entity, Activity.class);
 
-        LOGGER.log(Level.FINE, "Publisher response id:{0}", result.getId());
+        LOGGER.log(Level.FINE, "Publisher response :{0}", result);
 
     }
     

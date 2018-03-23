@@ -1,6 +1,6 @@
 {
   "type": "message",
-  "text": "jj",
+  "text": "server app env",
   "from": {
     "id": "default-user",
     "name": "User"
