@@ -42,7 +42,7 @@ public class Output {
 
         Content content = new Content();
         content.setTitle("Done!");
-        //content.setText("text");
+        content.setText("Text...");
 
         for (Actions a : actions) {
             Button button = new Button();

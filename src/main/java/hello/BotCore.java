@@ -2,6 +2,7 @@ package hello;
 
 import hello.comm.dto.Input;
 import hello.comm.dto.Output;
+import hello.jenkins.CommandService;
 import hello.jenkins.DeploymentService;
 import hello.pojo.Activity;
 import hello.pojo.ChannelAccount;
@@ -17,6 +18,9 @@ public class BotCore {
 
     @Autowired
     private DeploymentService deploymentService;
+
+    @Autowired
+    private CommandService commandService;
 
     /**
      * Process the Activity received from the user
@@ -37,13 +41,22 @@ public class BotCore {
             String command = input.getMessage();
             LOGGER.info("command-> " + command);
 
-            String[] parts = command.split(" ");
+            String error = getCommandService().validate(command);
 
-            getDeploymentService().deployBot(parts[0], parts[1], parts[2]);
-            
-            output.setText("Done!");
+            if (error != null) {
+                // cannot run
+                output.setText("Opsss... something went wrong (" + error + ")");
+              
+            } else {
 
-            output.addButton("Check Status", "checkstatus");
+                String[] parts = command.split(" ");
+
+                getDeploymentService().deployBot(parts[0], parts[1], parts[2]);
+
+                output.setText("Done!");
+
+                output.addButton("Check Status", "checkstatus");
+            }
 
         } else {
             LOGGER.warning("Unknown message type..");
@@ -133,6 +146,14 @@ public class BotCore {
 
     public void setDeploymentService(DeploymentService deploymentService) {
         this.deploymentService = deploymentService;
+    }
+
+    public CommandService getCommandService() {
+        return commandService;
+    }
+
+    public void setCommandService(CommandService commandService) {
+        this.commandService = commandService;
     }
 
 }
