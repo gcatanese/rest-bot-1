@@ -21,6 +21,9 @@ public class BotCore {
 
     @Autowired
     private CommandService commandService;
+    
+    @Autowired
+    private Publisher publisher;
 
     /**
      * Process the Activity received from the user
@@ -28,7 +31,9 @@ public class BotCore {
      * @param activity
      * @return
      */
-    public Output reply(Activity activity) {
+    public void reply(Activity activity) {
+        
+        String error = null;
 
         Input input = processInput(activity);
 
@@ -41,7 +46,7 @@ public class BotCore {
             String command = input.getMessage();
             LOGGER.info("command-> " + command);
 
-            String error = getCommandService().validate(command);
+            error = getCommandService().validate(command);
 
             if (error != null) {
                 // cannot run
@@ -65,8 +70,16 @@ public class BotCore {
         processOutput(output);
 
         LOGGER.info(output.toString());
-
-        return output;
+        
+        getPublisher().send(ConversationUrlHandler.getReplyUrl(activity), output);
+        
+        if (error != null) {
+            Output output2 = prepareOutput(input);
+            output2.setText("Try something like: scacc.sapienzaconsulting.com svc staging");
+            
+            processOutput(output2);
+            getPublisher().send(ConversationUrlHandler.getReplyUrl(activity), output2);
+        }
 
     }
 
@@ -156,4 +169,12 @@ public class BotCore {
         this.commandService = commandService;
     }
 
+    public Publisher getPublisher() {
+        return publisher;
+    }
+
+    public void setPublisher(Publisher publisher) {
+        this.publisher = publisher;
+    }
+    
 }

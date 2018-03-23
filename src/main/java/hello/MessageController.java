@@ -29,9 +29,6 @@ public class MessageController {
     private BotCore botCore;
 
     @Autowired
-    private Publisher publisher;
-
-    @Autowired
     private SecurityAgent securityAgent;
 
     @RequestMapping(value = "/test", method = GET)
@@ -47,9 +44,7 @@ public class MessageController {
 
         Activity activity = getActivity(body);
 
-        Output output = getBotCore().reply(activity);
-
-        getPublisher().send(ConversationUrlHandler.getReplyUrl(activity), output);
+        getBotCore().reply(activity);
 
         String jwt = this.getJWT(request);
 
@@ -138,12 +133,5 @@ public class MessageController {
         return jwt;
     }
 
-    public Publisher getPublisher() {
-        return publisher;
-    }
-
-    public void setPublisher(Publisher publisher) {
-        this.publisher = publisher;
-    }
 
 }
