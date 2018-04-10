@@ -82,6 +82,25 @@ public class BotCore {
         }
 
     }
+    
+    public void send(Activity activity) {
+        
+        LOGGER.warning("send");
+        
+        Input input = processInput(activity);
+
+        Output output = prepareOutput(input);
+        
+        output.setText("Hey There!");
+        
+        processOutput(output);
+
+        LOGGER.info(output.toString());
+        
+        getPublisher().send(ConversationUrlHandler.createConversationUrl(activity), output);
+        
+
+    }
 
     // create Input object (from Activity)
     private Input processInput(Activity activity) {
@@ -95,7 +114,9 @@ public class BotCore {
 
         Activity activity = new Activity();
         activity.setConversation(input.getActivity().getConversation());
-
+        
+        activity.setChannelId(input.getActivity().getChannelId());
+        
         ChannelAccount from = new ChannelAccount();
 //        from.setId(input.getActivity().getRecipient().getId());
 //        from.setName(input.getActivity().getRecipient().getName());

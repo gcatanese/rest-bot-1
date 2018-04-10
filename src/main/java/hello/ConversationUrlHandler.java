@@ -36,7 +36,8 @@ public class ConversationUrlHandler {
         }
 
         String url = baseUrl
-                + "/v3/conversations";
+                + "/v3/conversations/" + activity.getConversation().getId()
+                + "/activities";
 
         return url;
     }

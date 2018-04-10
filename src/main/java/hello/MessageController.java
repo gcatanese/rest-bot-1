@@ -49,6 +49,15 @@ public class MessageController {
         String jwt = this.getJWT(request);
 
         getSecurityAgent().auth(jwt);
+        
+        try {
+            LOGGER.warning("sleep 1 sec");
+            Thread.sleep(1000);
+            
+            getBotCore().send(activity);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(MessageController.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
         return getAck();
 
