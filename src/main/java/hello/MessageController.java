@@ -31,14 +31,10 @@ public class MessageController {
     @Autowired
     private SecurityAgent securityAgent;
 
-    @PostConstruct
-    public void init() {
-        LOGGER.info("createConversation");
-        getBotCore().createConversation();
-    }
-
     @RequestMapping(value = "/test", method = GET)
     public String test(HttpServletRequest request) {
+        LOGGER.info("createConversation");
+        getBotCore().createConversation();
         return "test";
     }
 
