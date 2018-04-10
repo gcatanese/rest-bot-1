@@ -149,6 +149,8 @@ public class BotCore {
         activity.setServiceUrl(input.getActivity().getServiceUrl());
 
         activity.setType("message");
+        
+        activity.setLocalTimestamp("2018-04-10T17:25:44.679Z");
 
         output.setActivity(activity);
 
