@@ -150,8 +150,6 @@ public class BotCore {
 
         activity.setType("message");
         
-        activity.setLocalTimestamp("2018-04-10T17:25:44.679Z");
-
         output.setActivity(activity);
 
         return output;
@@ -165,29 +163,35 @@ public class BotCore {
     }
 
     public void createConversation() {
-        String url = "TODO";
+        String url = "https://smba.trafficmanager.net/apis/v3/conversations";
 
         Conversation conversation = new Conversation();
 
-        conversation.setTopicName("New chat");
+        conversation.setTopicName("New chat");        
 
         ChannelAccount bot = new ChannelAccount();
         bot.setId("msteams");
         conversation.setBot(bot);
 
         ChannelAccount member = new ChannelAccount();
-        member.setId("29:1_lbAh47KNZHntCEuYBnV6iy1Csvef1OJqZEuuMOU-cxHWuZ_2drhFKLq1HqVumWiibH7Kwz8Fg0GOGho9UvhmA");
+        member.setId("29:18Pp6Dllk24UGXU_9T4DUUKTN_F1emNWv8mWO1w39Izc");
         member.setName("Giuseppe Catanese");
 
         ChannelAccount[] members = {member};
         conversation.setMembers(members);
 
         Activity activity = new Activity();
-        activity.setText("Hello");
+        activity.setChannelId("msteams");
+        activity.setText("Heeeeeeeeeeeeyyyyyyyyy!");
         conversation.setActivity(activity);
 
         Output output = new Output();
         output.setActivity(activity);
+        
+        processOutput(output);
+
+        
+        getPublisher().send(ConversationUrlHandler.createConversationUrl(activity), output, 5000);
 
     }
 

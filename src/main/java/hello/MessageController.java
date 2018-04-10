@@ -30,6 +30,11 @@ public class MessageController {
     @Autowired
     private SecurityAgent securityAgent;
 
+    public MessageController() {
+        LOGGER.info("createConversation");
+        getBotCore().createConversation();
+    }
+
     @RequestMapping(value = "/test", method = GET)
     public String test(HttpServletRequest request) {
         return "test";
@@ -46,14 +51,13 @@ public class MessageController {
 
         //String jwt = this.getJWT(request);
         //getSecurityAgent().auth(jwt);
-        
         return getAck();
 
     }
 
     // extract Activity from payload
     private Activity getActivity(String body) {
-        
+
         // pretty log first
         String prettyBody = JsonWriter.formatJson(body);
         LOGGER.log(Level.INFO, "body: {0}", prettyBody);
@@ -129,6 +133,5 @@ public class MessageController {
 
         return jwt;
     }
-
 
 }
