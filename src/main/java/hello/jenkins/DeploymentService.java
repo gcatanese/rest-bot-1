@@ -3,6 +3,7 @@
 package hello.jenkins;
 
 import com.offbytwo.jenkins.JenkinsServer;
+import com.offbytwo.jenkins.model.Build;
 import com.offbytwo.jenkins.model.QueueReference;
 import java.net.URI;
 import java.util.HashMap;
@@ -41,6 +42,29 @@ public class DeploymentService {
         } catch (Exception ex) {
             throw new RuntimeException(ex);
         }
+
+    }
+
+    public String getStatus() {
+        LOGGER.info("getStatus");
+
+        String result = null;
+
+        try {
+            JenkinsServer jenkins = new JenkinsServer(new URI(JENKINS_URL), USERNAME, PASSWORD);
+
+            Build lastBuild = jenkins.getJob(JOB_NAME).getLastBuild();
+            LOGGER.info("getStatus lastBuild: " + lastBuild);
+
+            result = lastBuild.details().getResult().name();
+
+        } catch (Exception ex) {
+            throw new RuntimeException(ex);
+        }
+
+        LOGGER.info("getStatus result: " + result);
+
+        return result;
 
     }
 

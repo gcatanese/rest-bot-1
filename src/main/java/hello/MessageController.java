@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cedarsoftware.util.io.JsonWriter;
-import hello.comm.dto.Output;
 
 @RestController
 public class MessageController {
@@ -50,15 +49,6 @@ public class MessageController {
 
         getSecurityAgent().auth(jwt);
         
-        try {
-            LOGGER.warning("sleep 1 sec");
-            Thread.sleep(1000);
-            
-            getBotCore().send(activity);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(MessageController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
         return getAck();
 
     }

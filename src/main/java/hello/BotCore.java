@@ -7,6 +7,7 @@ import hello.jenkins.DeploymentService;
 import hello.pojo.Activity;
 import hello.pojo.ChannelAccount;
 import hello.pojo.Conversation;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,7 +22,7 @@ public class BotCore {
 
     @Autowired
     private CommandService commandService;
-    
+
     @Autowired
     private Publisher publisher;
 
@@ -32,7 +33,7 @@ public class BotCore {
      * @return
      */
     public void reply(Activity activity) {
-        
+
         String error = null;
 
         Input input = processInput(activity);
@@ -51,7 +52,7 @@ public class BotCore {
             if (error != null) {
                 // cannot run
                 output.setText("Opsss... something went wrong (" + error + ")");
-              
+
             } else {
 
                 String[] parts = command.split(" ");
@@ -70,35 +71,51 @@ public class BotCore {
         processOutput(output);
 
         LOGGER.info(output.toString());
-        
+
         getPublisher().send(ConversationUrlHandler.getReplyUrl(activity), output);
-        
+
         if (error != null) {
+            // send additional message (if an error has occurred)
             Output output2 = prepareOutput(input);
             output2.setText("Try something like---> scacc.sapienzaconsulting.com svc staging");
-            
+
             processOutput(output2);
             getPublisher().send(ConversationUrlHandler.getReplyUrl(activity), output2);
+            
+        } else {
+            // check status
+
+            try {
+                LOGGER.warning("sleep 5 sec");
+                Thread.sleep(5000);
+                
+                String status = getDeploymentService().getStatus();
+
+                send(activity, status);
+                
+            } catch (InterruptedException ex) {
+                Logger.getLogger(MessageController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
         }
 
     }
-    
-    public void send(Activity activity) {
-        
+
+    public void send(Activity activity, String status) {
+
         LOGGER.warning("send");
-        
+
         Input input = processInput(activity);
 
         Output output = prepareOutput(input);
-        
-        output.setText("Hey There!");
-        
+
+        output.setText("Status of the job is " + status.toUpperCase());
+
         processOutput(output);
 
         LOGGER.info(output.toString());
-        
+
         getPublisher().send(ConversationUrlHandler.createConversationUrl(activity), output);
-        
 
     }
 
@@ -114,9 +131,9 @@ public class BotCore {
 
         Activity activity = new Activity();
         activity.setConversation(input.getActivity().getConversation());
-        
+
         activity.setChannelId(input.getActivity().getChannelId());
-        
+
         ChannelAccount from = new ChannelAccount();
 //        from.setId(input.getActivity().getRecipient().getId());
 //        from.setName(input.getActivity().getRecipient().getName());
@@ -197,5 +214,5 @@ public class BotCore {
     public void setPublisher(Publisher publisher) {
         this.publisher = publisher;
     }
-    
+
 }
