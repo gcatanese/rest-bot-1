@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cedarsoftware.util.io.JsonWriter;
+import javax.annotation.PostConstruct;
 
 @RestController
 public class MessageController {
@@ -30,7 +31,8 @@ public class MessageController {
     @Autowired
     private SecurityAgent securityAgent;
 
-    public MessageController() {
+    @PostConstruct
+    public void init() {
         LOGGER.info("createConversation");
         getBotCore().createConversation();
     }
