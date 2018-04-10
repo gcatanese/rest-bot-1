@@ -191,7 +191,7 @@ public class BotCore {
         processOutput(output);
 
         
-        getPublisher().send(ConversationUrlHandler.createConversationUrl(activity), output, 5000);
+        getPublisher().send(url, output, 5000);
 
     }
 
