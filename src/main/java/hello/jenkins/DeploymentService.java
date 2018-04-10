@@ -54,7 +54,6 @@ public class DeploymentService {
             JenkinsServer jenkins = new JenkinsServer(new URI(JENKINS_URL), USERNAME, PASSWORD);
 
             Build lastBuild = jenkins.getJob(JOB_NAME).getLastBuild();
-            LOGGER.info("getStatus lastBuild: " + lastBuild);
 
             result = lastBuild.details().getResult().name();
 

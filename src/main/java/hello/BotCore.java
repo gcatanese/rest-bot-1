@@ -27,7 +27,7 @@ public class BotCore {
     private Publisher publisher;
 
     /**
-     * Process the Activity received from the user
+     * ReplyTo user
      *
      * @param activity
      * @return
@@ -60,8 +60,7 @@ public class BotCore {
                 getDeploymentService().deployBot(parts[0], parts[1], parts[2]);
 
                 output.setText("Done!");
-
-                output.addButton("Check Status", "checkstatus");
+                //output.addButton("Check Status", "checkstatus");
             }
 
         } else {
@@ -72,6 +71,7 @@ public class BotCore {
 
         LOGGER.info(output.toString());
 
+        // send Reply
         getPublisher().send(ConversationUrlHandler.getReplyUrl(activity), output);
 
         if (error != null) {
@@ -106,16 +106,16 @@ public class BotCore {
         LOGGER.warning("send");
 
         Input input = processInput(activity);
+        
+        Output output3 = prepareOutput(input);
 
-        Output output = prepareOutput(input);
+        output3.setText("Status of the job is " + status);
 
-        output.setText("Status of the job is " + status.toUpperCase());
+        processOutput(output3);
 
-        processOutput(output);
+        LOGGER.info(output3.toString());
 
-        LOGGER.info(output.toString());
-
-        getPublisher().send(ConversationUrlHandler.createConversationUrl(activity), output);
+        getPublisher().send(ConversationUrlHandler.createConversationUrl(activity), output3, 1000);
 
     }
 
@@ -135,10 +135,8 @@ public class BotCore {
         activity.setChannelId(input.getActivity().getChannelId());
 
         ChannelAccount from = new ChannelAccount();
-//        from.setId(input.getActivity().getRecipient().getId());
-//        from.setName(input.getActivity().getRecipient().getName());
         from.setId("99");
-        from.setName("FantaAntonio");
+        from.setName("BOT");
         activity.setFrom(from);
 
         ChannelAccount recipient = new ChannelAccount();

@@ -35,19 +35,17 @@ public class MessageController {
         return "test";
     }
 
+    // reply to message
     @RequestMapping(value = "/bot", method = POST)
     @ResponseBody
     public String reply(HttpServletRequest request, @RequestBody String body) {
 
         LOGGER.setLevel(Level.INFO);
 
-        Activity activity = getActivity(body);
+        getBotCore().reply(getActivity(body));
 
-        getBotCore().reply(activity);
-
-        String jwt = this.getJWT(request);
-
-        getSecurityAgent().auth(jwt);
+        //String jwt = this.getJWT(request);
+        //getSecurityAgent().auth(jwt);
         
         return getAck();
 

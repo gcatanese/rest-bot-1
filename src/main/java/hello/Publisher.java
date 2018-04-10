@@ -19,9 +19,25 @@ import org.springframework.web.client.RestTemplate;
 public class Publisher {
 
     private static final Logger LOGGER = Logger.getLogger(Publisher.class.getName());
-    
+
     @Autowired
     private SecurityAgent securityAgent;
+
+    // generate reply as POST to the given URL
+    public void send(final String urlEndPoint, final Output output, final int delay) {
+
+        Thread t = new Thread(new Runnable() {
+            public void run() {
+                try {
+                    Thread.sleep(delay);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(MessageController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                doRun(urlEndPoint, output);
+            }
+        });
+        t.start();
+    }
 
     // generate reply as POST to the given URL
     public void send(final String urlEndPoint, final Output output) {
@@ -38,8 +54,6 @@ public class Publisher {
 
         LOGGER.log(Level.INFO, "urlEndPoint:{0}", urlEndPoint);
 
-        
-        
         RestTemplate restTemplate = new RestTemplate();
 
         HttpHeaders headers = new HttpHeaders();
@@ -52,9 +66,9 @@ public class Publisher {
         LOGGER.log(Level.FINE, "Publisher response :{0}", result);
 
     }
-    
+
     private String getToken() {
-        
+
         RestTemplate restTemplate = new RestTemplate();
         String url = "https://login.microsoftonline.com/botframework.com/oauth2/v2.0/token";
         String param = "grant_type=client_credentials&client_id="
@@ -72,7 +86,7 @@ public class Publisher {
         JWTWrapper result = restTemplate.postForObject(url, entity, JWTWrapper.class);
         LOGGER.log(Level.INFO, "getToken_type:{0}", result.getToken_type());
         LOGGER.log(Level.INFO, "getAccess_token:{0}", result.getAccess_token());
-        
+
         return result.getAccess_token();
 
     }
@@ -84,7 +98,5 @@ public class Publisher {
     public void setSecurityAgent(SecurityAgent securityAgent) {
         this.securityAgent = securityAgent;
     }
-    
-    
 
 }
