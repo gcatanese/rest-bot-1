@@ -55,7 +55,8 @@ public class BotCore {
         conversation.setTopicName("New chat");
 
         ChannelAccount bot = new ChannelAccount();
-        bot.setId("msteams");
+        bot.setId("99");
+        bot.setName("BOT");
         conversation.setBot(bot);
 
         ChannelAccount member = new ChannelAccount();
@@ -68,6 +69,11 @@ public class BotCore {
         Activity activity = new Activity();
         activity.setChannelId("msteams");
         activity.setText("Heeeeeeeeeeeeyyyyyyyyy!");
+        
+        activity.setRecipient(member);
+        
+        //activity.setConversation(conversation);
+        
         conversation.setActivity(activity);
 
         return conversation;
