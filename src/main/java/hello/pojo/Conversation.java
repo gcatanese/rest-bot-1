@@ -44,6 +44,13 @@ public class Conversation {
     public void setMembers(ChannelAccount[] members) {
         this.members = members;
     }
-    
+
+    @Override
+    public String toString() {
+        return "Conversation["
+                + "activity:" + activity
+                + ",topicName:" + topicName
+                + "]";
+    }
     
 }

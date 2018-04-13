@@ -91,7 +91,7 @@ public class BotService {
 
         Conversation conversation = getBotCore().createConversation(url);
         
-        LOGGER.info("" + conversation);
+        LOGGER.info("conversation---> " + conversation);
 
         getPublisher().send(url, conversation, 5000);
 
