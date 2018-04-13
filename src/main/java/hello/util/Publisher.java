@@ -2,6 +2,7 @@ package hello.util;
 
 import hello.MessageController;
 import hello.pojo.Activity;
+import hello.pojo.Conversation;
 import hello.pojo.security.JWTWrapper;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -44,6 +45,21 @@ public class Publisher {
         t.start();
     }
 
+    public void send(final String urlEndPoint, final Conversation conversation, final int delay) {
+
+        Thread t = new Thread(new Runnable() {
+            public void run() {
+                try {
+                    Thread.sleep(delay);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(MessageController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                doRun(urlEndPoint, conversation);
+            }
+        });
+        t.start();
+    }
+    
     /**
      * POST Activity to endPoint
      * @param urlEndPoint
@@ -69,6 +85,24 @@ public class Publisher {
         LOGGER.log(Level.FINE, "Publisher response :{0}", result);
 
     }
+    
+    private void doRun(String urlEndPoint, Conversation conversation) {
+
+        LOGGER.log(Level.INFO, "urlEndPoint:{0}", urlEndPoint);
+
+        RestTemplate restTemplate = new RestTemplate();
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Authorization", "Bearer " + getToken());
+
+        HttpEntity<Conversation> entity = new HttpEntity<>(conversation, headers);
+
+        Activity result = restTemplate.postForObject(urlEndPoint, entity, Activity.class);
+
+        LOGGER.log(Level.FINE, "Publisher response :{0}", result);
+
+    }
+    
 
     private String getToken() {
 

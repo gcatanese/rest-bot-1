@@ -68,7 +68,7 @@ public class BotService {
             Activity secondMessage = getBotCore().prepareOutput(input);
             secondMessage.setText("Try something like---> scacc.sapienzaconsulting.com svc staging");
 
-            getPublisher().send(ConversationUrlHandler.getReplyUrl(input), secondMessage);
+            getPublisher().send(ConversationUrlHandler.getReplyUrl(input), secondMessage, 1000);
 
         } else {
             // success: check status
@@ -88,7 +88,7 @@ public class BotService {
 
         Conversation conversation = getBotCore().createConversation();
 
-        getPublisher().send(url, conversation.getActivity(), 5000);
+        getPublisher().send(url, conversation, 5000);
 
     }
 
