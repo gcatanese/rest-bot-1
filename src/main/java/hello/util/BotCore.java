@@ -5,6 +5,7 @@ package hello.util;
 import hello.pojo.Activity;
 import hello.pojo.ChannelAccount;
 import hello.pojo.Conversation;
+import hello.pojo.ConversationAccount;
 import java.util.logging.Logger;
 import org.springframework.stereotype.Service;
 
@@ -48,10 +49,10 @@ public class BotCore {
 
     }
 
-    public Conversation createConversation() {
+    public Conversation createConversation(String url) {
 
         Conversation conversation = new Conversation();
-
+        
         conversation.setTopicName("New chat");
 
         ChannelAccount bot = new ChannelAccount();
@@ -67,12 +68,18 @@ public class BotCore {
         conversation.setMembers(members);
 
         Activity activity = new Activity();
+        
+        ConversationAccount conversationAccount = new ConversationAccount();
+        conversationAccount.setType("personal");
+        
+        activity.setConversation(conversationAccount);
+        
         activity.setChannelId("msteams");
         activity.setText("Heeeeeeeeeeeeyyyyyyyyy!");
         
         activity.setRecipient(member);
         
-        //activity.setConversation(conversation);
+        activity.setServiceUrl(url);
         
         conversation.setActivity(activity);
 

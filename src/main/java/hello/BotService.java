@@ -84,9 +84,14 @@ public class BotService {
     }
 
     public void createConversation() {
-        String url = "https://smba.trafficmanager.net/apis/v3/conversations";
+        //String url = "https://smba.trafficmanager.net/apis/v3/conversations";
+        String url = "https://smba.trafficmanager.net/emea-client-ss.msg";
+        
+        url = ConversationUrlHandler.createConversationUrl(url);
 
-        Conversation conversation = getBotCore().createConversation();
+        Conversation conversation = getBotCore().createConversation(url);
+        
+        LOGGER.info("" + conversation);
 
         getPublisher().send(url, conversation, 5000);
 
