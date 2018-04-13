@@ -7,7 +7,8 @@ package hello.pojo;
 
 public class Attachment {
 
-    private Content content;
+    //private Content content;
+    private Object content;
 
     private String contentUrl;
 
@@ -17,11 +18,11 @@ public class Attachment {
 
     private String contentType;
 
-    public Content getContent() {
+    public Object getContent() {
         return content;
     }
 
-    public void setContent(Content content) {
+    public void setContent(Object content) {
         this.content = content;
     }
 
