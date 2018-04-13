@@ -3,6 +3,7 @@ package hello.util;
 import hello.MessageController;
 import hello.pojo.Activity;
 import hello.pojo.Conversation;
+import hello.pojo.ResourceResponse;
 import hello.pojo.security.JWTWrapper;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -97,7 +98,7 @@ public class Publisher {
 
         HttpEntity<Conversation> entity = new HttpEntity<>(conversation, headers);
 
-        Activity result = restTemplate.postForObject(urlEndPoint, entity, Activity.class);
+        ResourceResponse result = restTemplate.postForObject(urlEndPoint, entity, ResourceResponse.class);
 
         LOGGER.log(Level.FINE, "Publisher response :{0}", result);
 
