@@ -1,4 +1,4 @@
-package hello;
+package hello.util;
 
 import hello.pojo.Activity;
 import java.util.logging.Logger;

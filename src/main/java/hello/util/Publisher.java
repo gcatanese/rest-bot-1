@@ -1,6 +1,6 @@
-package hello;
+package hello.util;
 
-import hello.comm.dto.Output;
+import hello.MessageController;
 import hello.pojo.Activity;
 import hello.pojo.security.JWTWrapper;
 import java.util.logging.Level;
@@ -24,7 +24,7 @@ public class Publisher {
     private SecurityAgent securityAgent;
 
     // generate reply as POST to the given URL
-    public void send(final String urlEndPoint, final Output output, final int delay) {
+    public void send(final String urlEndPoint, final Activity output, final int delay) {
 
         Thread t = new Thread(new Runnable() {
             public void run() {
@@ -40,7 +40,7 @@ public class Publisher {
     }
 
     // generate reply as POST to the given URL
-    public void send(final String urlEndPoint, final Output output) {
+    public void send(final String urlEndPoint, final Activity output) {
 
         Thread t = new Thread(new Runnable() {
             public void run() {
@@ -50,7 +50,7 @@ public class Publisher {
         t.start();
     }
 
-    private void doRun(String urlEndPoint, Output output) {
+    private void doRun(String urlEndPoint, Activity output) {
 
         LOGGER.log(Level.INFO, "urlEndPoint:{0}", urlEndPoint);
 
@@ -59,7 +59,7 @@ public class Publisher {
         HttpHeaders headers = new HttpHeaders();
         headers.add("Authorization", "Bearer " + getToken());
 
-        HttpEntity<Activity> entity = new HttpEntity<>(output.getActivity(), headers);
+        HttpEntity<Activity> entity = new HttpEntity<>(output, headers);
 
         Activity result = restTemplate.postForObject(urlEndPoint, entity, Activity.class);
 

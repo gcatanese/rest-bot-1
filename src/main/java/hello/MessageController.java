@@ -1,5 +1,6 @@
 package hello;
 
+import hello.util.SecurityAgent;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import hello.pojo.Activity;
@@ -18,7 +19,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cedarsoftware.util.io.JsonWriter;
-import javax.annotation.PostConstruct;
 
 @RestController
 public class MessageController {
@@ -26,7 +26,7 @@ public class MessageController {
     private static final Logger LOGGER = Logger.getLogger(MessageController.class.getName());
 
     @Autowired
-    private BotCore botCore;
+    private BotService botService;
 
     @Autowired
     private SecurityAgent securityAgent;
@@ -34,7 +34,7 @@ public class MessageController {
     @RequestMapping(value = "/test", method = GET)
     public String test(HttpServletRequest request) {
         LOGGER.info("createConversation");
-        getBotCore().createConversation();
+        getBotService().createConversation();
         return "test";
     }
 
@@ -45,7 +45,7 @@ public class MessageController {
 
         LOGGER.setLevel(Level.INFO);
 
-        getBotCore().reply(getActivity(body));
+        getBotService().reply(getActivity(body));
 
         //String jwt = this.getJWT(request);
         //getSecurityAgent().auth(jwt);
@@ -85,12 +85,12 @@ public class MessageController {
                 + "\"\n}";
     }
 
-    public BotCore getBotCore() {
-        return botCore;
+    public BotService getBotService() {
+        return botService;
     }
 
-    public void setBotCore(BotCore botCore) {
-        this.botCore = botCore;
+    public void setBotService(BotService botEngine) {
+        this.botService = botService;
     }
 
     public SecurityAgent getSecurityAgent() {
