@@ -29,7 +29,7 @@ public class Publisher {
      * @param output
      * @param delay 
      */
-    public void send(final String urlEndPoint, final Object output, final int delay) {
+    public void send(final String urlEndPoint, final Activity output, final int delay) {
 
         Thread t = new Thread(new Runnable() {
             public void run() {
@@ -49,11 +49,11 @@ public class Publisher {
      * @param urlEndPoint
      * @param output
      */
-    public void send(final String urlEndPoint, final Object output) {
+    public void send(final String urlEndPoint, final Activity output) {
         send(urlEndPoint, output, 0);
     }
 
-    private void doRun(String urlEndPoint, Object output) {
+    private void doRun(String urlEndPoint, Activity output) {
 
         LOGGER.log(Level.INFO, "urlEndPoint:{0}", urlEndPoint);
 
@@ -62,7 +62,7 @@ public class Publisher {
         HttpHeaders headers = new HttpHeaders();
         headers.add("Authorization", "Bearer " + getToken());
 
-        HttpEntity<Object> entity = new HttpEntity<>(output, headers);
+        HttpEntity<Activity> entity = new HttpEntity<>(output, headers);
 
         Activity result = restTemplate.postForObject(urlEndPoint, entity, Activity.class);
 
