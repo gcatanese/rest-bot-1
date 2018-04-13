@@ -49,7 +49,6 @@ public class BotCore {
     }
 
     public Conversation createConversation() {
-        String url = "https://smba.trafficmanager.net/apis/v3/conversations";
 
         Conversation conversation = new Conversation();
 
@@ -60,7 +59,7 @@ public class BotCore {
         conversation.setBot(bot);
 
         ChannelAccount member = new ChannelAccount();
-        member.setId("29:18Pp6Dllk24UGXU_9T4DUUKTN_F1emNWv8mWO1w39Izc");
+        member.setId("29:1_lbAh47KNZHntCEuYBnV6iy1Csvef1OJqZEuuMOU-cxHWuZ_2drhFKLq1HqVumWiibH7Kwz8Fg0GOGho9UvhmA");
         member.setName("Giuseppe Catanese");
 
         ChannelAccount[] members = {member};
