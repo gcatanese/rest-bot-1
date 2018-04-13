@@ -24,6 +24,9 @@ public class BotCore {
         output.setConversation(input.getConversation());
 
         output.setChannelId(input.getChannelId());
+        
+        output.setTimestamp(input.getTimestamp());
+        output.setLocalTimestamp(input.getLocalTimestamp());
 
         ChannelAccount from = new ChannelAccount();
         from.setId("99");
