@@ -306,11 +306,13 @@ public class Activity {
 
     @Override
     public String toString() {
-        return "id:" + id
+        return "[Activity["
+                + "id:" + id
                 + ", text:" + text
                 + ", channelId:" + channelId
                 + ", conversation.id:" + (conversation == null ? "null" : conversation.getId())
-                + ", serviceUrl:" + serviceUrl;
+                + ", serviceUrl:" + serviceUrl
+                + "]";
     }
 
 }

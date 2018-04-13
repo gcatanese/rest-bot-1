@@ -50,6 +50,8 @@ public class Conversation {
         return "Conversation["
                 + "activity:" + activity
                 + ",topicName:" + topicName
+                + ",bot:" + bot
+                + ",members:" + members
                 + "]";
     }
     
