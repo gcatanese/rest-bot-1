@@ -23,8 +23,13 @@ public class Publisher {
     @Autowired
     private SecurityAgent securityAgent;
 
-    // generate reply as POST to the given URL
-    public void send(final String urlEndPoint, final Activity output, final int delay) {
+    /**
+     * POST Activity to endPoint after a given delay (millisec)
+     * @param urlEndPoint
+     * @param output
+     * @param delay 
+     */
+    public void send(final String urlEndPoint, final Object output, final int delay) {
 
         Thread t = new Thread(new Runnable() {
             public void run() {
@@ -39,18 +44,16 @@ public class Publisher {
         t.start();
     }
 
-    // generate reply as POST to the given URL
-    public void send(final String urlEndPoint, final Activity output) {
-
-        Thread t = new Thread(new Runnable() {
-            public void run() {
-                doRun(urlEndPoint, output);
-            }
-        });
-        t.start();
+    /**
+     * POST Activity to endPoint
+     * @param urlEndPoint
+     * @param output
+     */
+    public void send(final String urlEndPoint, final Object output) {
+        send(urlEndPoint, output, 0);
     }
 
-    private void doRun(String urlEndPoint, Activity output) {
+    private void doRun(String urlEndPoint, Object output) {
 
         LOGGER.log(Level.INFO, "urlEndPoint:{0}", urlEndPoint);
 
@@ -59,7 +62,7 @@ public class Publisher {
         HttpHeaders headers = new HttpHeaders();
         headers.add("Authorization", "Bearer " + getToken());
 
-        HttpEntity<Activity> entity = new HttpEntity<>(output, headers);
+        HttpEntity<Object> entity = new HttpEntity<>(output, headers);
 
         Activity result = restTemplate.postForObject(urlEndPoint, entity, Activity.class);
 

@@ -28,11 +28,11 @@ public class BotService {
 
     @Autowired
     private Publisher publisher;
+
     /**
      * ReplyTo user
      *
      * @param input
-     * @return
      */
     public void reply(Activity input) {
 
@@ -41,7 +41,7 @@ public class BotService {
         Activity output = getBotCore().prepareOutput(input);
 
         String command = input.getText();
-        LOGGER.info("command-> " + command);
+        LOGGER.log(Level.INFO, "command-> {0}", command);
 
         error = getCommandService().validate(command);
 
@@ -64,42 +64,22 @@ public class BotService {
         getPublisher().send(ConversationUrlHandler.getReplyUrl(input), output);
 
         if (error != null) {
-            // send additional message (if an error has occurred)
+            // error: send additional message
             Activity secondMessage = getBotCore().prepareOutput(input);
             secondMessage.setText("Try something like---> scacc.sapienzaconsulting.com svc staging");
 
             getPublisher().send(ConversationUrlHandler.getReplyUrl(input), secondMessage);
 
         } else {
-            // check status
+            // success: check status
+            String status = getDeploymentService().getStatus();
 
-            try {
-                LOGGER.warning("sleep 5 sec");
-                Thread.sleep(5000);
+            Activity checkStatus = getBotCore().prepareOutput(input);
+            checkStatus.setText("Status of the job is " + status);
 
-                String status = getDeploymentService().getStatus();
-
-                send(input, status);
-
-            } catch (InterruptedException ex) {
-                Logger.getLogger(MessageController.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            getPublisher().send(ConversationUrlHandler.getReplyUrl(checkStatus), output, 5000);
 
         }
-
-    }
-
-    public void send(Activity activity, String status) {
-
-        LOGGER.warning("send");
-
-        Activity output = getBotCore().prepareOutput(activity);
-
-        output.setText("Status of the job is " + status);
-
-        LOGGER.info(output.toString());
-
-        getPublisher().send(ConversationUrlHandler.createConversationUrl(activity), output, 1000);
 
     }
 
@@ -143,5 +123,5 @@ public class BotService {
     public void setBotCore(BotCore botCore) {
         this.botCore = botCore;
     }
-    
+
 }
