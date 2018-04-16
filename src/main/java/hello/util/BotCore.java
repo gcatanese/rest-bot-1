@@ -51,6 +51,15 @@ public class BotCore {
 
     public Conversation createConversation(String url) {
 
+        final String SKYPE_USER_ID = "29:18Pp6Dllk24UGXU_9T4DUUKTN_F1emNWv8mWO1w39Izc";
+        final String SKYPE_USER_NAME = "Beppe Catanese";
+        
+        final String MSTEAMS_USER_ID = "29:1_lbAh47KNZHntCEuYBnV6iy1Csvef1OJqZEuuMOU-cxHWuZ_2drhFKLq1HqVumWiibH7Kwz8Fg0GOGho9UvhmA";
+        final String MSTEAMS_USER_NAME = "Giuseppe Catanese";
+        
+        String userId = MSTEAMS_USER_ID;
+        String username = MSTEAMS_USER_NAME;
+        
         Conversation conversation = new Conversation();
         
         conversation.setTopicName("New chat");
@@ -62,8 +71,8 @@ public class BotCore {
         conversation.setBot(bot);
 
         ChannelAccount member = new ChannelAccount();
-        member.setId("29:18Pp6Dllk24UGXU_9T4DUUKTN_F1emNWv8mWO1w39Izc");
-        member.setName("Beppe Catanese");
+        member.setId(userId);
+        member.setName(username);
 
         ChannelAccount[] members = {member};
         conversation.setMembers(members);
@@ -74,7 +83,6 @@ public class BotCore {
         
         ConversationAccount conversationAccount = new ConversationAccount();
         conversationAccount.setType("personal");
-        //conversationAccount.setId("8:beppe-catanese");
         
         activity.setConversation(conversationAccount);
         
