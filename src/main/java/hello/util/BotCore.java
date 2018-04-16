@@ -68,24 +68,24 @@ public class BotCore {
         ChannelAccount[] members = {member};
         conversation.setMembers(members);
 
-        Activity activity = new Activity();
+//        Activity activity = new Activity();
+//        
+//        ConversationAccount conversationAccount = new ConversationAccount();
+//        conversationAccount.setType("personal");
+//        //conversationAccount.setId("8:beppe-catanese");
+//        
+//        activity.setConversation(conversationAccount);
+//        
+//        activity.setFrom(bot);
+//        
+//        //activity.setChannelId("msteams");
+//        activity.setText("Heeeeeeeeeeeeyyyyyyyyy!");
+//        
+//        activity.setRecipient(member);
+//        
+//        activity.setServiceUrl(url);
         
-        ConversationAccount conversationAccount = new ConversationAccount();
-        conversationAccount.setType("personal");
-        //conversationAccount.setId("8:beppe-catanese");
-        
-        activity.setConversation(conversationAccount);
-        
-        activity.setFrom(bot);
-        
-        //activity.setChannelId("msteams");
-        activity.setText("Heeeeeeeeeeeeyyyyyyyyy!");
-        
-        activity.setRecipient(member);
-        
-        activity.setServiceUrl(url);
-        
-        conversation.setActivity(activity);
+        //conversation.setActivity(activity);
 
         return conversation;
 

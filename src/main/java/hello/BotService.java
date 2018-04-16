@@ -7,8 +7,10 @@ import hello.jenkins.DeploymentService;
 import hello.pojo.Activity;
 import hello.pojo.Attachment;
 import hello.pojo.Button;
+import hello.pojo.ChannelAccount;
 import hello.pojo.Content;
 import hello.pojo.Conversation;
+import hello.pojo.ConversationAccount;
 import hello.util.BotCore;
 import java.util.ArrayList;
 import java.util.List;
@@ -127,6 +129,36 @@ public class BotService {
         LOGGER.info("conversation---> " + conversation);
 
         getPublisher().send(url, conversation, 5000);
+        
+        Activity activity = new Activity();
+        
+        ConversationAccount conversationAccount = new ConversationAccount();
+        conversationAccount.setType("personal");
+        conversationAccount.setId("8:beppe-catanese");
+        
+        activity.setConversation(conversationAccount);
+        
+        ChannelAccount bot = new ChannelAccount();
+        bot.setId("99");
+        bot.setName("BOT");
+        conversation.setBot(bot);
+        
+        activity.setFrom(bot);
+        
+        //activity.setChannelId("msteams");
+        activity.setText("Heeeeeeeeeeeeyyyyyyyyy!");
+        
+        ChannelAccount member = new ChannelAccount();
+        member.setId("29:18Pp6Dllk24UGXU_9T4DUUKTN_F1emNWv8mWO1w39Izc");
+        member.setName("Beppe Catanese");
+        
+        activity.setRecipient(member);
+        
+        activity.setServiceUrl(url);      
+        
+        LOGGER.info("activity---> " + activity);
+        
+        getPublisher().send(url, activity, 1000);
 
     }
 
