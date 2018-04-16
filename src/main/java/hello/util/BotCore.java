@@ -54,6 +54,7 @@ public class BotCore {
         Conversation conversation = new Conversation();
         
         conversation.setTopicName("New chat");
+        conversation.setIsGroup(false);
 
         ChannelAccount bot = new ChannelAccount();
         bot.setId("99");

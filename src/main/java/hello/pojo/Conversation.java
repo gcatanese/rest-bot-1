@@ -10,6 +10,7 @@ public class Conversation {
     
     private Activity activity;
     private String topicName;
+    private boolean isGroup;
     private ChannelAccount bot;
     private ChannelAccount[] members;
 
@@ -45,11 +46,20 @@ public class Conversation {
         this.members = members;
     }
 
+    public boolean isIsGroup() {
+        return isGroup;
+    }
+
+    public void setIsGroup(boolean isGroup) {
+        this.isGroup = isGroup;
+    }
+    
     @Override
     public String toString() {
         return "Conversation["
                 + "activity:" + activity
                 + ",topicName:" + topicName
+                + "isGroup:" + isGroup
                 + ",bot:" + bot
                 + ",members:" + members
                 + "]";
