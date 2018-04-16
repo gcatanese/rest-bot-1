@@ -75,6 +75,8 @@ public class BotCore {
         
         activity.setConversation(conversationAccount);
         
+        activity.setFrom(bot);
+        
         activity.setChannelId("msteams");
         activity.setText("Heeeeeeeeeeeeyyyyyyyyy!");
         
