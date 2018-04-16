@@ -54,6 +54,6 @@ public class ChannelData {
 
     @Override
     public String toString() {
-        return "ClassPojo [tenant = " + tenant + ", teamsChannelId = " + teamsChannelId + ", teamsTeamId = " + teamsTeamId + ", team = " + team + ", channel = " + channel + "]";
+        return "ChannelData [tenant = " + tenant + ", teamsChannelId = " + teamsChannelId + ", teamsTeamId = " + teamsTeamId + ", team = " + team + ", channel = " + channel + "]";
     }
 }

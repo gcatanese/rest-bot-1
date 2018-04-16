@@ -19,6 +19,6 @@ public class Tenant {
 
     @Override
     public String toString() {
-        return "ClassPojo [id = " + id + "]";
+        return "Tenant [id = " + id + "]";
     }
 }

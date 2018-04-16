@@ -312,6 +312,7 @@ public class Activity {
                 + ", channelId:" + channelId
                 + ", conversation.id:" + (conversation == null ? "null" : conversation.getId())
                 + ", serviceUrl:" + serviceUrl
+                + ", channelData:" + channelData
                 + "]";
     }
 

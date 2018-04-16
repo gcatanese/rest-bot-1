@@ -27,7 +27,7 @@ public class BotCore {
         output.setConversation(input.getConversation());
 
         output.setChannelId(input.getChannelId());
-        
+
         output.setTimestamp(input.getTimestamp());
         output.setLocalTimestamp(input.getLocalTimestamp());
 
@@ -55,15 +55,15 @@ public class BotCore {
 
         final String SKYPE_USER_ID = "29:18Pp6Dllk24UGXU_9T4DUUKTN_F1emNWv8mWO1w39Izc";
         final String SKYPE_USER_NAME = "Beppe Catanese";
-        
+
         final String MSTEAMS_USER_ID = "29:1_lbAh47KNZHntCEuYBnV6iy1Csvef1OJqZEuuMOU-cxHWuZ_2drhFKLq1HqVumWiibH7Kwz8Fg0GOGho9UvhmA";
         final String MSTEAMS_USER_NAME = "Giuseppe Catanese";
-        
+
         String userId = MSTEAMS_USER_ID;
         String username = MSTEAMS_USER_NAME;
-        
+
         Conversation conversation = new Conversation();
-        
+
         conversation.setTopicName("New chat");
         conversation.setIsGroup(false);
 
@@ -80,35 +80,35 @@ public class BotCore {
         conversation.setMembers(members);
 
         Activity activity = new Activity();
-        
+
         activity.setType("message");
-        
+
         ConversationAccount conversationAccount = new ConversationAccount();
         conversationAccount.setType("personal");
-        
+
         activity.setConversation(conversationAccount);
-        
+
         activity.setFrom(bot);
-        
+
         //activity.setChannelId("msteams");
         activity.setText("Heeeeeeeeeeeeyyyyyyyyy!");
-        
+
         activity.setRecipient(member);
-        
+
         activity.setServiceUrl(url);
-        
+
         ChannelData channelData = new ChannelData();
         Tenant tenant = new Tenant();
         tenant.setId("78680bdb-24e1-4334-b94b-ab9e88f0c898");
-        
+
         channelData.setTenant(tenant);
-                
+
         activity.setChannelData(channelData);
-        
+
         conversation.setActivity(activity);
-        
+
         return conversation;
 
     }
-    
+
 }
