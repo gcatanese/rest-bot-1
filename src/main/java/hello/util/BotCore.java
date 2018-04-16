@@ -74,7 +74,7 @@ public class BotCore {
         
         ConversationAccount conversationAccount = new ConversationAccount();
         conversationAccount.setType("personal");
-        conversationAccount.setId("8:beppe-catanese");
+        //conversationAccount.setId("8:beppe-catanese");
         
         activity.setConversation(conversationAccount);
         
