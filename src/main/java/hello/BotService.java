@@ -7,6 +7,8 @@ import hello.jenkins.DeploymentService;
 import hello.pojo.Activity;
 import hello.pojo.Conversation;
 import hello.util.BotCore;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,6 +50,33 @@ public class BotService {
         if (error != null) {
             // cannot run
             output.setText("Opsss... something went wrong (" + error + ")");
+            
+            Attachment attachment = new Attachment();
+            attachment.setContentType("application/vnd.microsoft.card.hero");
+
+            Content content = new Content();
+            content.setTitle("Done!");
+            content.setText("Text...");
+            
+            Button button = new Button();
+            button.setType("imBack");
+            button.setTitle("title");
+            button.setValue("value");
+
+            Button button2 = new Button();
+            button2.setType("imBack");
+            button2.setTitle("title2");
+            button2.setValue("value2");
+            
+            content.getButtons().add(button2);
+
+            List<Attachment> list = new ArrayList<>();
+            
+            attachment.setContent(content);
+            
+            list.add(attachment);
+            output.setAttachments(list);
+            
 
         } else {
 
