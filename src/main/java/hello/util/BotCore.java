@@ -82,7 +82,7 @@ public class BotCore {
         
         activity.setServiceUrl(url);
         
-        //conversation.setActivity(activity);
+        conversation.setActivity(activity);
 
         return conversation;
 
