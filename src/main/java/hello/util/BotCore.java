@@ -4,8 +4,10 @@ package hello.util;
 
 import hello.pojo.Activity;
 import hello.pojo.ChannelAccount;
+import hello.pojo.ChannelData;
 import hello.pojo.Conversation;
 import hello.pojo.ConversationAccount;
+import hello.pojo.Tenant;
 import java.util.logging.Logger;
 import org.springframework.stereotype.Service;
 
@@ -94,6 +96,14 @@ public class BotCore {
         activity.setRecipient(member);
         
         activity.setServiceUrl(url);
+        
+        ChannelData channelData = new ChannelData();
+        Tenant tenant = new Tenant();
+        tenant.setId("78680bdb-24e1-4334-b94b-ab9e88f0c898");
+        
+        channelData.setTenant(tenant);
+                
+        activity.setChannelData(channelData);
         
         conversation.setActivity(activity);
         
