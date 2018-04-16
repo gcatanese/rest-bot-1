@@ -17,5 +17,12 @@ public class ResourceResponse {
     public void setId(String id) {
         this.id = id;
     }
+
+    @Override
+    public String toString() {
+        return "ResourceResponse["
+                + "id:" + id
+                + "]";
+    }
     
 }
