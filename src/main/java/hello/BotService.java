@@ -128,7 +128,7 @@ public class BotService {
         
         LOGGER.info("conversation---> " + conversation);
 
-        getPublisher().send(url, conversation, 5000);
+        getPublisher().send(url, conversation, 1000);
         
         Activity activity = new Activity();
         
@@ -158,7 +158,7 @@ public class BotService {
         
         LOGGER.info("activity---> " + activity);
         
-        getPublisher().send(url, activity, 1000);
+        getPublisher().send(url, activity, 5000);
 
     }
 
