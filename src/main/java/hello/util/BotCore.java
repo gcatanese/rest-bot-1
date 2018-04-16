@@ -70,9 +70,11 @@ public class BotCore {
 
         Activity activity = new Activity();
         
+        activity.setType("message");
+        
         ConversationAccount conversationAccount = new ConversationAccount();
         conversationAccount.setType("personal");
-        //conversationAccount.setId("8:beppe-catanese");
+        conversationAccount.setId("8:beppe-catanese");
         
         activity.setConversation(conversationAccount);
         
@@ -86,7 +88,7 @@ public class BotCore {
         activity.setServiceUrl(url);
         
         conversation.setActivity(activity);
-
+        
         return conversation;
 
     }
