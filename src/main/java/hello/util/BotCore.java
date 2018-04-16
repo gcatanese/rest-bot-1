@@ -62,8 +62,8 @@ public class BotCore {
         conversation.setBot(bot);
 
         ChannelAccount member = new ChannelAccount();
-        member.setId("29:1_lbAh47KNZHntCEuYBnV6iy1Csvef1OJqZEuuMOU-cxHWuZ_2drhFKLq1HqVumWiibH7Kwz8Fg0GOGho9UvhmA");
-        member.setName("Giuseppe Catanese");
+        member.setId("29:18Pp6Dllk24UGXU_9T4DUUKTN_F1emNWv8mWO1w39Izc");
+        member.setName("Beppe Catanese");
 
         ChannelAccount[] members = {member};
         conversation.setMembers(members);
