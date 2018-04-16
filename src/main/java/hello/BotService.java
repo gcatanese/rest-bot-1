@@ -71,6 +71,7 @@ public class BotService {
             button2.setTitle("title2");
             button2.setValue("value2");
             
+            content.getButtons().add(button);
             content.getButtons().add(button2);
 
             List<Attachment> list = new ArrayList<>();
@@ -117,7 +118,7 @@ public class BotService {
 
     public void createConversation() {
         //String url = "https://smba.trafficmanager.net/apis/v3/conversations";
-        String url = "https://smba.trafficmanager.net/emea-client-ss.msg";
+        String url = "https://smba.trafficmanager.net/apis";
         
         url = ConversationUrlHandler.createConversationUrl(url);
 
