@@ -72,13 +72,13 @@ public class BotCore {
         
         ConversationAccount conversationAccount = new ConversationAccount();
         conversationAccount.setType("personal");
-        conversationAccount.setId("8:beppe-catanese");
+        //conversationAccount.setId("8:beppe-catanese");
         
         activity.setConversation(conversationAccount);
         
         activity.setFrom(bot);
         
-        activity.setChannelId("msteams");
+        //activity.setChannelId("msteams");
         activity.setText("Heeeeeeeeeeeeyyyyyyyyy!");
         
         activity.setRecipient(member);
