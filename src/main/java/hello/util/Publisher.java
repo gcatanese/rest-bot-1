@@ -83,7 +83,7 @@ public class Publisher {
 
         Activity result = restTemplate.postForObject(urlEndPoint, entity, Activity.class);
 
-        LOGGER.log(Level.FINE, "Publisher response :{0}", result);
+        LOGGER.log(Level.INFO, "Publisher response :{0}", result);
 
     }
     
@@ -100,7 +100,7 @@ public class Publisher {
 
         ResourceResponse result = restTemplate.postForObject(urlEndPoint, entity, ResourceResponse.class);
 
-        LOGGER.log(Level.FINE, "Publisher response :{0}", result);
+        LOGGER.log(Level.INFO, "Publisher response :{0}", result);
 
     }
     
